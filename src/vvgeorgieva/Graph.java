@@ -229,7 +229,7 @@ public class Graph {
 
      */
 
-    public Vertex getVertex(Integer label){
+    public Vertex getVertex(String label){
 
         return vertices.get(label);
 
@@ -344,9 +344,7 @@ public class Graph {
      */
 
     public Set<Edge> getEdges(){
-
         return new HashSet<Edge>(this.edges.values());
-
     }
     
     public Set<Vertex> getVertices(){
@@ -356,9 +354,12 @@ public class Graph {
     } 
 
 
-	public Edge findEdge(Vertex v_a, Vertex v_b) {
-		return new Edge(v_a, v_b);
-	}   
+    /** Finds an edge if any between v1 and v2 **/
+    public Edge findEdge(Vertex v1, Vertex v2) {
+      if (!containsVertex(v1) || !containsVertex(v2)) 
+        return null;
+      return new Edge(v1,v2);
+    }  
     
 
 }
