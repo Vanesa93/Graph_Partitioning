@@ -25,6 +25,7 @@ public class Vertex {
 
     public ArrayList<Edge> neighborhood;
     public String label;
+    public double gain;
   
    /**
 
@@ -36,6 +37,7 @@ public class Vertex {
     public Vertex(String label){
        this.label = label;
        this.neighborhood = new ArrayList<Edge>();
+       this.gain = gain;
     }
    
     /**
@@ -57,6 +59,14 @@ public class Vertex {
       
         this.neighborhood.add(edge);
     }
+    
+    public void setGain(double vertexGain){
+       this.gain = vertexGain;
+     }
+    
+    public double getGain(Vertex v){
+        return this.gain;
+     }
     /**
 
      *

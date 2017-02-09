@@ -352,14 +352,13 @@ public class Graph {
         return new HashSet<Vertex>(this.vertices.values());
 
     } 
-
-
-    /** Finds an edge if any between v1 and v2 **/
-    public Edge findEdge(Vertex v1, Vertex v2) {
-      if (!containsVertex(v1) || !containsVertex(v2)) 
-        return null;
-      return new Edge(v1,v2);
-    }  
+    
+    public Edge findConnected(Vertex v1, Vertex v2) {
+    	Edge edge = new Edge(v1, v2);
+        if (!this.getEdges().contains(edge)) 
+          return null;
+        return edge;
+      }
     
 
 }
