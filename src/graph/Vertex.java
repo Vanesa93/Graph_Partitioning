@@ -1,134 +1,76 @@
-package vvgeorgieva;
+package graph;
 
 import java.util.ArrayList;
-
- 
-
-/**
-
- * This class models a vertex in a graph. For ease of
- * the reader, a label for this vertex is required.
-
- * Note that the Graph object only accepts one Vertex per label,
-
- * so uniqueness of labels is important. This vertex's neighborhood
-
- * is described by the Edges incident to it.
-
- *
-
- * @author Vanesa Georgieva
-
- */
 
 public class Vertex {
 
     public ArrayList<Edge> neighborhood;
     public String label;
-    public double gain;
   
    /**
-
      *
      * @param label The unique label associated with this Vertex
-
-   */
+     */
 
     public Vertex(String label){
        this.label = label;
        this.neighborhood = new ArrayList<Edge>();
-       this.gain = gain;
     }
    
     /**
-
-     * This method adds an Edge to the incidence neighborhood of this graph iff
-
-     * the edge is not already present.
-
-     *
-
      * @param edge The edge to add
-
+     *  add edge to the neighborhood
      */
 
     public void addNeighbor(Edge edge){
        if(this.neighborhood.contains(edge)){
             return;
-        }
-      
+        }      
         this.neighborhood.add(edge);
     }
     
-    public void setGain(double vertexGain){
-       this.gain = vertexGain;
-     }
-    
-    public double getGain(Vertex v){
-        return this.gain;
-     }
     /**
-
      *
-
-     * @param other The edge for which to search
-
-     * @return true iff other is contained in this.neighborhood
-
+     * @param search for neighbor edge
+     * @return if the other is in the neighborhood true
      */
 
     public boolean containsNeighbor(Edge other){
         return this.neighborhood.contains(other);
     }
+    
     /**
-
      *
-
      * @param index The index of the Edge to retrieve
-
-     * @return Edge The Edge at the specified index in this.neighborhood
-
-     */
-
-    public Edge getNeighbors(int index){
-        return this.neighborhood.get(index);
-
+     * @return get specified edge by index
+     */    
+    
+    public Edge getNeighbor(int index){
+    	return this.neighborhood.get(index);
     }
     
     /**
-
      *
-
      * @param index The index of the edge to remove from this.neighborhood
-
      * @return Edge The removed Edge
-
      */
 
     Edge removeNeighbor(int index){
        return this.neighborhood.remove(index);
-
     }
     
     /**
-
      *
-
      * @param e The Edge to remove from this.neighborhood
-
      */
+    
     public void removeNeighbor(Edge e){
-
         this.neighborhood.remove(e);
-
    }
     
     /**
-
      *
-
      * @return int The number of neighbors of this Vertex
-
      */
 
   public int getNeighborCount(){
@@ -136,11 +78,8 @@ public class Vertex {
     }
   
   /**
-
-     *
-
-     * @return String The label of this Vertex
-
+    *
+    * @return String The label of this Vertex
     */
 
     public String getLabel(){
@@ -149,11 +88,8 @@ public class Vertex {
     }
     
     /**
-
      *
-
-     * @return String A String representation of this Vertex
-
+     * @return represents the vertex as string
      */
 
     public String toString(){
@@ -163,11 +99,8 @@ public class Vertex {
      
 
     /**
-
      *
-
      * @return The hash code of this Vertex's label
-
      */
 
    public int hashCode(){
@@ -177,13 +110,9 @@ public class Vertex {
      
 
    /**
-
      *
-
      * @param other The object to compare
-
-     * @return true iff other instanceof Vertex and the two Vertex objects have the same label
-
+     * @return compare two vertex by label
   */
 
     public boolean equals(Object other){
@@ -197,22 +126,12 @@ public class Vertex {
      
 
     /**
-
      *
-
-     * @return ArrayList<Edge> A copy of this.neighborhood. Modifying the returned
-
-     * ArrayList will not affect the neighborhood of this Vertex
-
+     * @return ArrayList<Edge> A copy of this.neighborhood. 
      */
 
     public ArrayList<Edge> getNeighbors(){
         return new ArrayList<Edge>(this.neighborhood);
-    }
-    
-    
-    public Edge getNeighbor(int v){
-    	return this.neighborhood.get(v);
     }
 
      

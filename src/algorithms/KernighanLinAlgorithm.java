@@ -1,13 +1,18 @@
-package vvgeorgieva;	
+package algorithms;	
 
 import java.util.LinkedList;
 
+import graph.Edge;
+import graph.Graph;
+import graph.Vertex;
+
 /**
- * An implentation of the Kernighan-Lin heuristic algorithm for splitting a graph into 
- * two groups where the weights of the edges between groups (cutting cost) is minimised.
+ * Kernighan-Lin - splitting a graph into 
+ * two groups where the weights of the edges between groups (cutting cost) is minimised
  * @author Vanesa Georgieva
  *
  */
+
 public class KernighanLinAlgorithm {
   
   /** Performs KerninghanLin on the given graph **/
@@ -25,12 +30,12 @@ public class KernighanLinAlgorithm {
   public Graph getGraph() { return graph; }
   final private int partitionSize;
   
+  
   private KernighanLinAlgorithm(Graph g) {
     this.graph = g;
     this.partitionSize = g.getVertices().size() / 2;
-    
-//    if (g.getVertices().size() != partitionSize * 2) 
-//      throw new RuntimeException("Size of vertices must be even");
+    if (g.getVertices().size() != partitionSize * 2) 
+      throw new RuntimeException("Size of vertices must be even");
     
     A = new VertexGroup();
     B = new VertexGroup();
@@ -39,15 +44,15 @@ public class KernighanLinAlgorithm {
     for (Vertex v : g.getVertices()) {
       (++i > partitionSize ? B : A).add(v);
     }
+    
+    // create new unSwapped groups for processing
     unswappedA = new VertexGroup(A);
     unswappedB = new VertexGroup(B);
-    
-    System.out.println(A.size()+" "+B.size());
     
     doAllSwaps();
   }
   
-  /** Performs |V|/2 swaps and chooses the one with least cut cost one **/
+  /** Performs swaps(half of graph vertices) and chooses the one with least cut cost one **/
   private void doAllSwaps() {
 
     LinkedList<Edge> swaps = new LinkedList<Edge>();
@@ -61,29 +66,24 @@ public class KernighanLinAlgorithm {
         minId = i; 
       }
     }
-    
     // Unwind swaps
     while (swaps.size()-1 > minId) {
       Edge pair = swaps.pop();
       // unswap
       swapVertices(A, pair.two, B, pair.one);
     }
-   }
+  }
   
   /** Chooses the least cost swap and performs it **/
   private double doSingleSwap(LinkedList<Edge> swaps) {
-    
+   
     Edge maxPair = null;
-    double maxGain = Double.NEGATIVE_INFINITY;
-    
+    double maxGain = Double.NEGATIVE_INFINITY;    
     for (Vertex v_a : unswappedA) {
-      for (Vertex v_b : unswappedB) {
-        
+      for (Vertex v_b : unswappedB) {        
         Edge e = graph.findConnected(v_a, v_b);
         double edge_cost = (e != null) ? e.weight : 0;
-        // Calculate the gain in cost if these vertices were swapped
-        // subtract 2*edge_cost because this edge will still be an external edge
-        // after swapping
+        // Calculate the gain in cost if these vertices were swappeds
         double gain = getVertexCost(v_a) + getVertexCost(v_b) - 2 * edge_cost;
         
         if (gain > maxGain) {
@@ -103,15 +103,14 @@ public class KernighanLinAlgorithm {
 
   /** Returns the difference of external cost and internal cost of this vertex.
    *  When moving a vertex from within group A, all internal edges become external 
-   *  edges and vice versa. **/
+   *  edges and the opposite **/
   private double getVertexCost(Vertex v) {
     
     double cost = 0;
 
     boolean v1isInA = A.contains(v);
     
-    for (Vertex v2 : graph.getVertices()) {
-      
+    for (Vertex v2 : graph.getVertices()) {      
       boolean v2isInA = A.contains(v2);
       Edge edge = graph.findConnected(v, v2);
       double edge_cost = (edge != null) ? edge.weight : 0;
@@ -126,11 +125,9 @@ public class KernighanLinAlgorithm {
   /** Returns the sum of the costs of all edges between A and B **/
   public double getCutCost() {
     double cost = 0;
-
     for (Edge edge : graph.getEdges()) {     
       boolean firstInA = A.contains(edge.one);
       boolean secondInA= A.contains(edge.two);
-      
       if (firstInA != secondInA) // external
         cost += edge.weight;
     }

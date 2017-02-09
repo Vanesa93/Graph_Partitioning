@@ -1,6 +1,8 @@
-package vvgeorgieva;
+package algorithms;
 
 import java.util.HashSet;
+
+import graph.Vertex;
 
 public class VertexGroup extends HashSet<Vertex> {  
   /**
