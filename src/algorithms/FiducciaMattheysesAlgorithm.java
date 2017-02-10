@@ -80,14 +80,13 @@ public class FiducciaMattheysesAlgorithm {
         minId = i; 
       }
     }
+    
     // Unwind swaps
     while (linkedListEdges.size() > minId) {   	
-      linkedListEdges.pop();
-      // swaps vertices from the max pairs with highest gain
-      for(Edge pair : linkedListEdges){
+      Edge pair = linkedListEdges.pop();
+      // swaps vertices from the max pair with highest gain
 	      double costA = getVertexCost(pair.one);
-	      double costB = getVertexCost(pair.two);
-	      
+	      double costB = getVertexCost(pair.two);  
 	      if(costA<costB && unSwappedA.contains(pair.one)){    
 	    	  if(A.contains(pair.one)){
 	    		  swapVertices(A, pair.one, B);
@@ -100,12 +99,12 @@ public class FiducciaMattheysesAlgorithm {
 	      	  }else swapVertices(B, pair.two, A);
 	      	  unSwappedA.remove(pair.two);
 	      }
-      }
     }
  }
   
   /** Chooses the least cost swap and performs it depending on the vertex gain**/
   private double doSingleSwap(LinkedList<Edge> linkedListEdges) {
+
     Edge maxPair = null;
     double maxCost = Double.NEGATIVE_INFINITY;    
     for (Vertex v_a : unSwappedA) {
@@ -147,7 +146,6 @@ public class FiducciaMattheysesAlgorithm {
     double cost = 0;
 
     boolean v1isInA = A.contains(v);
-    
     for (Vertex v2 : graph.getVertices()) {      
       boolean v2isInA = A.contains(v2);
       Edge edge = graph.findConnected(v, v2);

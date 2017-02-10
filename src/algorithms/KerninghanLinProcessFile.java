@@ -38,7 +38,8 @@ public class KerninghanLinProcessFile {
 	    			currentVertex++;
 	    			line = br.readLine();
 	    			}
-	    		KernighanLinAlgorithm k = KernighanLinAlgorithm.process(graph);					
+	    		KernighanLinAlgorithm k = KernighanLinAlgorithm.process(graph);	
+	    		System.out.println("Kernighan Lin Algorithm");
 				System.out.println("Cluster 1");
 				System.out.println(k.getGroupA());
 				System.out.println("Cluster 2");

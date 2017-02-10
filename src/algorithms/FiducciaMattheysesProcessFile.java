@@ -39,7 +39,8 @@ public class FiducciaMattheysesProcessFile {
 	    			currentVertex++;
 	    			line = br.readLine();
 	    			}
-	    		FiducciaMattheysesAlgorithm k = FiducciaMattheysesAlgorithm.process(graph);					
+	    		FiducciaMattheysesAlgorithm k = FiducciaMattheysesAlgorithm.process(graph);	
+	    		System.out.println("Fiduccia Mattheyses Algorithm");
 				System.out.println("Cluster 1");
 				System.out.println(k.getGroupA());
 				System.out.println("Cluster 2");
